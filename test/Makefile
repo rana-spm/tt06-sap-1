@@ -5,7 +5,7 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = project.v  # Update or ensure this variable includes all relevant source files as per the old version
+PROJECT_SOURCES = tt_um_sap_1.v sap_1.v clock.v pc.v memory.v reg_a.v reg_b.v adder.v multiplier.v divider.v ir.v controller.v
 
 ifneq ($(GATES),yes)
 
