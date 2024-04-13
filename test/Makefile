@@ -13,7 +13,6 @@ ifneq ($(GATES),yes)
 SIM_BUILD				= sim_build/rtl
 VERILOG_SOURCES += $(addprefix $(SRC_DIR)/,$(PROJECT_SOURCES))
 COMPILE_ARGS 		+= -I$(SRC_DIR)
-VERILOG_SOURCES += $(PWD)/tb.v $(PWD)/tt_um_sap_1.v $(PWD)/sap_1.v $(PWD)/clock.v $(PWD)/pc.v $(PWD)/reg_a.v $(PWD)/reg_b.v $(PWD)/memory.v $(PWD)/adder.v $(PWD)/ir.v $(PWD)/controller.v $(PWD)/multiplier.v $(PWD)/divider.v    
 
 else
 
