@@ -5,7 +5,7 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = project.v
+PROJECT_SOURCES = project.v  # Update or ensure this variable includes all relevant source files as per the old version
 
 ifneq ($(GATES),yes)
 
@@ -13,6 +13,7 @@ ifneq ($(GATES),yes)
 SIM_BUILD				= sim_build/rtl
 VERILOG_SOURCES += $(addprefix $(SRC_DIR)/,$(PROJECT_SOURCES))
 COMPILE_ARGS 		+= -I$(SRC_DIR)
+VERILOG_SOURCES += $(PWD)/tb.v $(PWD)/tt_um_sap_1.v $(PWD)/sap_1.v $(PWD)/clock.v $(PWD)/pc.v $(PWD)/reg_a.v $(PWD)/reg_b.v $(PWD)/memory.v $(PWD)/adder.v $(PWD)/ir.v $(PWD)/controller.v $(PWD)/multiplier.v $(PWD)/divider.v    
 
 else
 
@@ -25,9 +26,7 @@ COMPILE_ARGS    += -DSIM
 COMPILE_ARGS    += -DUNIT_DELAY=\#1
 VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/primitives.v
 VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v
-
-# this gets copied in by the GDS action workflow
-VERILOG_SOURCES += $(PWD)/gate_level_netlist.v
+VERILOG_SOURCES += $(PWD)/tb.v $(PWD)/gate_level_netlist.v
 
 endif
 

@@ -1,32 +1,29 @@
-# SPDX-FileCopyrightText: © 2024 Tiny Tapeout
-# SPDX-License-Identifier: MIT
+#In the SAP-1 computer design, there are no designated inputs for operations. 
+#Instead, the functionality is driven by the instruction set stored in the internal memory. 
+#Once the clock is toggled, the instruction at the current memory address is executed, 
+#and the operation carried out depends on this instruction. 
+#This makes the behavior of the SAP-1 computer inherently dependent on its pre-programmed instructions.
+
 
 import cocotb
 from cocotb.clock import Clock
-from cocotb.triggers import ClockCycles
+from cocotb.triggers import RisingEdge, FallingEdge, Timer, ClockCycles
+
+clocks_per_phase = 10
+
 
 @cocotb.test()
-async def test_project(dut):
-  dut._log.info("Start")
-  
-  # Our example module doesn't use clock and reset, but we show how to use them here anyway.
-  clock = Clock(dut.clk, 10, units="us")
-  cocotb.start_soon(clock.start())
+async def test_rgb_mixer(dut):
+    dut._log.info("start")
+    clock = Clock(dut.clk, 10, units="us")
+    cocotb.start_soon(clock.start())
 
-  # Reset
-  dut._log.info("Reset")
-  dut.ena.value = 1
-  dut.ui_in.value = 0
-  dut.uio_in.value = 0
-  dut.rst_n.value = 0
-  await ClockCycles(dut.clk, 10)
-  dut.rst_n.value = 1
+    # reset
+    dut._log.info("reset")
+    dut.rst_n.value = 0
 
-  # Set the input values, wait one clock cycle, and check the output
-  dut._log.info("Test")
-  dut.ui_in.value = 20
-  dut.uio_in.value = 30
+    await ClockCycles(dut.clk, 10)
+    dut.rst_n.value = 1
+    await ClockCycles(dut.clk, 128)
+    
 
-  await ClockCycles(dut.clk, 1)
-
-  assert dut.uo_out.value == 50
