@@ -4,7 +4,7 @@ module controller(
     input       clk,
     input       rst,
     input[3:0]  opcode,
-    output reg[11:0] out
+    output reg[13:0] out
     );
 
     localparam SIG_HLT       = 11;
